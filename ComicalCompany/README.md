@@ -1,18 +1,18 @@
 # ComicalCompany (working title)
 
-Lethal Non-Compliance\n
-Lethal Company: Director's Cut\n
-Lethal Company But Worse\n
-Corporate Sabotage Simulator\n
-Explain That To HR\n
-Lethal-er Company\n
-Rejected Features\n
-Lethal Company Policy Violation\n
-Unlethal Company\n
-Lethal Uncompany\n
-Unlethal Uncompany\n
-Lethal Companyn't\n
-Lethal Company: Early Access\n
+Lethal Non-Compliance<br />
+Lethal Company: Director's Cut<br />
+Lethal Company But Worse<br />
+Corporate Sabotage Simulator<br />
+Explain That To HR<br />
+Lethal-er Company<br />
+Rejected Features<br />
+Lethal Company Policy Violation<br />
+Unlethal Company<br />
+Lethal Uncompany<br />
+Unlethal Uncompany<br />
+Lethal Companyn't<br />
+Lethal Company: Early Access<br />
 
 ## A header
 
