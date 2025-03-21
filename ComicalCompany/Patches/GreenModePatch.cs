@@ -8,7 +8,7 @@ namespace ComicalCompany.Patches
     [HarmonyPatch(typeof(RoundManager))]
     public class GreenModePatch
     {
-        private static float greenModePercentChance = 1f;
+        private static float greenModePercentChance = 10f;
 
         [HarmonyPatch(nameof(RoundManager.GenerateNewLevelClientRpc))]
         [HarmonyPrefix]
