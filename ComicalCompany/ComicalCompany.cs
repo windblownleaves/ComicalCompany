@@ -1,5 +1,6 @@
 using BepInEx;
 using BepInEx.Logging;
+using ComicalCompany.Configuration;
 using HarmonyLib;
 
 namespace ComicalCompany
@@ -11,10 +12,14 @@ namespace ComicalCompany
         internal new static ManualLogSource Logger { get; private set; } = null!;
         internal static Harmony? Harmony { get; set; }
 
+        internal static ComicalCompanyConfig BoundConfig { get; private set; } = null!;
+
         private void Awake()
         {
             Logger = base.Logger;
             Instance = this;
+
+            BoundConfig = new ComicalCompanyConfig(Config);
 
             Patch();
 
