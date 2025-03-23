@@ -1,11 +1,5 @@
 ﻿using HarmonyLib;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
 
 namespace ComicalCompany.Patches
 {
@@ -13,13 +7,12 @@ namespace ComicalCompany.Patches
     public class OrbitDoorPatch
     {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(StartOfRound), "ShipHasLeft")]
+        [HarmonyPatch(typeof(StartOfRound), "SetShipReadyToLand")]
         public static void ShipHasLeft()
         {
             ComicalCompany.Logger.LogInfo("Doors unlocked");
             UnityEngine.Object.FindObjectOfType<HangarShipDoor>().SetDoorButtonsEnabled(true);
         }
-
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(HangarShipDoor), "SetDoorOpen")]
@@ -66,8 +59,5 @@ namespace ComicalCompany.Patches
                 ComicalCompany.Logger.LogInfo("Doors closed after reset.");
             }
         }
-
-
-
     }
 }

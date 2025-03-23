@@ -11,7 +11,10 @@ namespace ComicalCompany.Patches
         [HarmonyPostfix]
         public static void ItemStartPatch(GrabbableObject __instance)
         {
-            ComicalCompany.Logger.LogInfo("Start() on prop " + __instance.name);
+            if (!ComicalCompany.BoundConfig.enableItemRenaming.Value)
+            {
+                return;
+            }
 
             switch (__instance.name)
             {
