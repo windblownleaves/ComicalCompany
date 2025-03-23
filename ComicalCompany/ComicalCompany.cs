@@ -2,6 +2,7 @@ using BepInEx;
 using BepInEx.Logging;
 using ComicalCompany.Configuration;
 using HarmonyLib;
+using System.Linq;
 
 namespace ComicalCompany
 {
@@ -33,6 +34,12 @@ namespace ComicalCompany
             Logger.LogDebug("Patching...");
 
             Harmony.PatchAll();
+            // Log harmony patched methods
+            Logger.LogInfo("Patched methods:");
+            foreach (var patch in Harmony.GetPatchedMethods())
+            {
+                Logger.LogInfo(patch.FullDescription());
+            }
 
             Logger.LogDebug("Finished patching!");
         }

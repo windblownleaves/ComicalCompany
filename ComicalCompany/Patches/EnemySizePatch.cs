@@ -8,8 +8,8 @@ namespace ComicalCompany.Patches
     [HarmonyPatch]
     public class EnemySizePatch
     {
-        [HarmonyPatch(typeof(EnemyAI), "Start")]
         [HarmonyPostfix]
+        [HarmonyPatch(typeof(EnemyAI), "Start")]
         public static void Awake(EnemyAI __instance)
         {
             if (__instance.GetType() == typeof(ForestGiantAI))
@@ -20,6 +20,13 @@ namespace ComicalCompany.Patches
             {
                 __instance.transform.localScale = __instance.transform.localScale / 3;
             }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(SandSpiderWebTrap), "Start")]
+        public static void WebAwake(SandSpiderWebTrap __instance)
+        {
+            __instance.transform.localScale = __instance.transform.localScale * 2;
         }
     }
 }
