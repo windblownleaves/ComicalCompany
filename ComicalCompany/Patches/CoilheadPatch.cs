@@ -12,7 +12,7 @@ namespace ComicalCompany.Patches
     {
         public static float randomTimer = 0;
         public static float randomval = 1f;
-        public static MethodInfo checkRandomMethod = AccessTools.Method(typeof(CoilheadPatch), "CheckPerlin");
+        public static MethodInfo checkRandomMethod = AccessTools.Method(typeof(CoilheadPatch), "CheckRandom");
 
         public static bool CheckRandom()
         {
