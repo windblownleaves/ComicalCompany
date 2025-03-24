@@ -11,13 +11,12 @@ namespace ComicalCompany.Patches
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(DepositItemsDesk), "SellItemsOnServer")]
-
         public static void SellItemsOnServer(DepositItemsDesk __instance)
         {
             if (!__instance.IsServer) return;
             for (int i = 0; i < __instance.itemsOnCounter.Count; i++)
             {
-                if (__instance.itemsOnCounter[i].name.Contains("sign"))
+                if (__instance.itemsOnCounter[i].name.ToLower().Contains("sign"))
                 {
                     __instance.itemsOnCounter[i].scrapValue = -__instance.itemsOnCounter[i].scrapValue;
                 }
@@ -31,7 +30,7 @@ namespace ComicalCompany.Patches
         {
             for (int i = 0; i < objectsOnDesk.Length; i++)
             {
-                if (objectsOnDesk[i].name.Contains("sign"))
+                if (objectsOnDesk[i].name.ToLower().Contains("sign"))
                 {
                     HUDManager.Instance.DisplayTip("Government property detected", "Fine deducted from credits", true, false, "LC_Tip1");
                     return;

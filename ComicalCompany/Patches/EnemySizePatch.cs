@@ -15,6 +15,8 @@ namespace ComicalCompany.Patches
             if (__instance.GetType() == typeof(ForestGiantAI))
             {
                 __instance.transform.localScale = __instance.transform.localScale / 4;
+                __instance.gameObject.name = "Forest";
+                __instance.gameObject.GetComponent<ScanNodeProperties>().headerText = "Forest";
             }
             else if (__instance.GetType() == typeof(SandSpiderAI))
             {
@@ -23,7 +25,7 @@ namespace ComicalCompany.Patches
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(SandSpiderWebTrap), "Start")]
+        [HarmonyPatch(typeof(SandSpiderWebTrap), "Awake")]
         public static void WebAwake(SandSpiderWebTrap __instance)
         {
             __instance.transform.localScale = __instance.transform.localScale * 2;
