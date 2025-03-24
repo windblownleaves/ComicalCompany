@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using UnityEngine;
 
 namespace ComicalCompany.Patches
 {
@@ -223,16 +221,16 @@ namespace ComicalCompany.Patches
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Anglo-saxon phase transition device";
                     break;
                 case "Dentures(Clone)":
-                    __instance.itemProperties.itemName = "T̵HA̶T̵ ̸̋W̵̒̋H̴̉I̵C̴H̶ ̴C̵O̵N̸S̷̈U̷M̶E̸Š̶";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "T̵HA̶T̵ ̸̋W̵̒̋H̴̉I̵C̴H̶ ̴C̵O̵N̸S̷̈U̷M̶E̸Š̶";
+                    __instance.itemProperties.itemName = "THAT WHICH CONSUMES";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "THAT WHICH CONSUMES";
                     break;
                 case "ToiletPaperRolls(Clone)":
                     __instance.itemProperties.itemName = "Pandemic currency";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Pandemic currency";
                     break;
                 case "Toothpaste(Clone)":
-                    __instance.itemProperties.itemName = "T̵HA̶T̵ ̸̋W̵̒̋H̴̉I̵C̴H̶ ̴C̵O̵N̸S̷̈U̷M̶E̸Š̶ paste";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "T̵HA̶T̵ ̸̋W̵̒̋H̴̉I̵C̴H̶ ̴C̵O̵N̸S̷̈U̷M̶E̸Š̶ paste";
+                    __instance.itemProperties.itemName = "THAT WHICH CONSUMES paste";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "THAT WHICH CONSUMES paste";
                     break;
                 case "ToyCube(Clone)":
                     __instance.itemProperties.itemName = "(R'U'R)y'x'(RU')(R'F)(RUR')(RUR'U')R'FRUR'U'F'";
@@ -283,11 +281,11 @@ namespace ComicalCompany.Patches
                     break;
                 case "ExtensionLadder(Clone)":
                     __instance.itemProperties.itemName = "Extnesion ladder";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Vodka";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Extnesion ladder";
                     break;
                 case "FlashlightItem(Clone)":
                     __instance.itemProperties.itemName = "Pro-flasglight";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Vodka";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Pro-flasglight";
                     break;
                 case "JetpackItem(Clone)":
                     __instance.itemProperties.itemName = "Jtepacl";

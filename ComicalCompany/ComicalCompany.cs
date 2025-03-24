@@ -2,7 +2,9 @@ using BepInEx;
 using BepInEx.Logging;
 using ComicalCompany.Configuration;
 using HarmonyLib;
-using System.Linq;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
 
 namespace ComicalCompany
 {
@@ -15,6 +17,8 @@ namespace ComicalCompany
 
         internal static ComicalCompanyConfig BoundConfig { get; private set; } = null!;
 
+        public static AssetBundle assetBundle;
+
         private void Awake()
         {
             Logger = base.Logger;
@@ -25,6 +29,15 @@ namespace ComicalCompany
             Patch();
 
             Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has loaded!");
+
+            string sAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            assetBundle = AssetBundle.LoadFromFile(Path.Combine(sAssemblyLocation, "physicsapi"));
+
+            if (assetBundle == null)
+            {
+                Logger.LogError("Failed to load custom assets."); // ManualLogSource for your plugin
+                return;
+            }
         }
 
         internal static void Patch()
