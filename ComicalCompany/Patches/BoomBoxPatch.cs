@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,17 +12,34 @@ namespace ComicalCompany.Patches
     public class BoomBoxPatch
     {
         // WIP
-        public static BoomboxItem boomBoxItem = AllItemsList.FindAnyObjectByType(typeof(BoomboxItem)) as BoomboxItem;
+        public static GameObject? boomBoxItem;
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(BoomboxItem), "ItemActivate")]
         public static void ItemActivate(BoomboxItem __instance)
         {
             // Explode the boombox if its name is "Boom Box"
-            if (__instance.gameObject.name == "Boom Box")
+            if (__instance.gameObject.GetComponent<GrabbableObject>().itemProperties.automaticallySetUsingPower)
             {
                 ComicalCompany.Logger.LogInfo("Boom Box exploded!");
-                Landmine.SpawnExplosion(__instance.gameObject.transform.position, true, 1, 4f, 80, 20f);
+                Landmine.SpawnExplosion(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
+                __instance.playerHeldBy?.DestroyItemInSlot(__instance.playerHeldBy.currentItemSlot);
+            }
+
+        }
+
+        [HarmonyPriority(Priority.Low)]
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(GrabbableObject), "Start")]
+        public static void ItemStart(GrabbableObject __instance)
+        {
+            if (__instance.GetType() == typeof(BoomboxItem) && __instance.itemProperties.automaticallySetUsingPower)
+            {
+                __instance.itemProperties.itemName = "Boom Box";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Boom Box";
+                ComicalCompany.Logger.LogInfo("Boom Box renamed!");
+                ComicalCompany.Logger.LogInfo(((BoomboxItem)__instance).musicAudios.Length);
+                ((BoomboxItem)__instance).StartMusic(true, false);
             }
 
         }
@@ -34,18 +52,29 @@ namespace ComicalCompany.Patches
             {
                 if (UnityEngine.Random.Range(0f, 1f) < 1)
                 {
+                    if (boomBoxItem == null)
+                    {
+                        Item boomboxEntry = StartOfRound.Instance.allItemsList.itemsList.Find(x => x.itemName.Contains("box"));
+                        if (boomboxEntry == null)
+                        {
+                            ComicalCompany.Logger.LogError("Boombox item not found in allItemsList!");
+                            return;
+                        }
+                        boomBoxItem = boomboxEntry.spawnPrefab;
+                    }
+                    // Log stuff to check null
                     RandomScrapSpawn[] source = UnityEngine.Object.FindObjectsOfType<RandomScrapSpawn>();
                     Vector3 position = source[UnityEngine.Random.RandomRangeInt(0, source.Length)].gameObject.transform.position;
-                    GameObject obj = UnityEngine.Object.Instantiate(boomBoxItem.gameObject, position, Quaternion.identity, __instance.playersManager.propsContainer);
+
+                    ComicalCompany.Logger.LogInfo("Spawning Boom Box");
+                    ComicalCompany.Logger.LogInfo(boomBoxItem);
+                    ComicalCompany.Logger.LogInfo(position);
+
+                    GameObject obj = UnityEngine.Object.Instantiate<GameObject>(boomBoxItem, position, Quaternion.identity, __instance.playersManager.propsContainer);
+                    ComicalCompany.Logger.LogInfo(obj);
                     obj.GetComponent<GrabbableObject>().fallTime = 0f;
-                    obj.name = "Boom Box";
-                    obj.GetComponent<ScanNodeProperties>().name = "Boom Box";
-                    // sort this out, probably doesnt work
-                    if (obj.GetComponent<GrabbableObject>().GetType() == typeof(BoomboxItem))
-                    {
-                        ((BoomboxItem)obj.GetComponent<GrabbableObject>()).StartMusic(true, false);
-                    }
-                    obj.GetComponent<NetworkObject>().Spawn();
+                    obj.GetComponent<GrabbableObject>().itemProperties.automaticallySetUsingPower = true;
+                    obj.GetComponent<NetworkObject>().Spawn(false);   
                 }
             }
             

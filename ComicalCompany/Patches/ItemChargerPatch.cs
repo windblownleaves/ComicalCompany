@@ -38,6 +38,8 @@ namespace ComicalCompany.Patches
         [HarmonyPatch(typeof(ItemCharger), "ChargeItem")]
         public static void ChargeItem(ref ItemCharger __instance, ref bool __runOriginal)
         {
+            ComicalCompany.Logger.LogInfo("Charging item");
+            ComicalCompany.Logger.LogInfo(GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer);
             GrabbableObject currentlyHeldObjectServer = GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer;
             if (currentlyHeldObjectServer == null || (currentlyHeldObjectServer.itemProperties.isConductiveMetal && !currentlyHeldObjectServer.itemProperties.requiresBattery))
             {

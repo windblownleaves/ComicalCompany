@@ -262,10 +262,7 @@ namespace ComicalCompany.Patches
                     __instance.itemProperties.itemName = "Dog action figure";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Dog action figure";
                     break;
-                case "Boombox(Clone)":
-                    __instance.itemProperties.itemName = "Bombox";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Bombox";
-                    break;
+                
                 case "BBFlashlight(Clone)":
                     __instance.itemProperties.itemName = "Flashlghti";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Flashlghti";
