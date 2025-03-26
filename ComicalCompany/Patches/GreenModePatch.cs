@@ -14,10 +14,6 @@ namespace ComicalCompany.Patches
         [HarmonyPrefix]
         private static void GenerateLevelPrefix()
         {
-            if (!ComicalCompany.BoundConfig.enableGreenMode.Value)
-            {
-                return;
-            }
             if (Random.Range(0, 100) > greenModePercentChance)
             {
                 return;

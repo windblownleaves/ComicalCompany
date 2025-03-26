@@ -1,9 +1,11 @@
 ﻿using HarmonyLib;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ComicalCompany.Patches
 {
-    internal class VentPatch
+    [HarmonyPatch(typeof(StartOfRound))]
+    public class VentPatch
     {
         [HarmonyPatch(nameof(StartOfRound.StartGame))]
         [HarmonyPostfix]
@@ -21,11 +23,19 @@ namespace ComicalCompany.Patches
 
             GameObject ventInstance = GameObject.Instantiate(enemyVent);
 
+            NetworkObject netObj = ventInstance.GetComponent<NetworkObject>();
+            if (netObj != null && !netObj.IsSpawned)
+            {
+                netObj.Spawn();
+            }
+
             ventInstance.transform.position = vanillaVent.transform.position;
             ventInstance.transform.rotation = vanillaVent.transform.rotation;
             ventInstance.name = vanillaVent.name;
             ventInstance.transform.parent = vanillaVent.transform.parent;
             GameObject.Destroy(vanillaVent);
+
+            ComicalCompany.Logger.LogInfo("Destroyed vanilla vent and replaced it with " + enemyVent);
         }
     }
 }

@@ -9,97 +9,145 @@ namespace ComicalCompany.Configuration
 {
     class ComicalCompanyConfig
     {
-        public readonly ConfigEntry<bool> enableApparatusExplosion;
-        public readonly ConfigEntry<bool> enableCoilheadCheating;
-        public readonly ConfigEntry<bool> enableEnemySizeAdjustments;
-        public readonly ConfigEntry<bool> enableFallDamage;
-        public readonly ConfigEntry<bool> enableGreenMode;
-        public readonly ConfigEntry<bool> enableElectrocution;
-        public readonly ConfigEntry<bool> enableItemRenaming;
-        public readonly ConfigEntry<bool> enableJumpFailure;
-        public readonly ConfigEntry<bool> enableOrbitDoor;
-        public readonly ConfigEntry<bool> enableShipVent;
-        public readonly ConfigEntry<bool> enableInstantTZP;
+        public readonly ConfigEntry<bool> enableApparatusPatch;
+        public readonly ConfigEntry<bool> enableBoomBoxPatch;
+        public readonly ConfigEntry<bool> enableCoilheadPatch;
+        public readonly ConfigEntry<bool> enableEnemySizePatch;
+        public readonly ConfigEntry<bool> enableFallDamagePatch;
+        public readonly ConfigEntry<bool> enableGovernmentPropertyPatch;
+        public readonly ConfigEntry<bool> enableGreenModePatch;
+        public readonly ConfigEntry<bool> enableItemChargerPatch;
+        public readonly ConfigEntry<bool> enableItemNamePatch;
+        public readonly ConfigEntry<bool> enableJesterInfestation;
+        public readonly ConfigEntry<bool> enableJumpPatch;
+        public readonly ConfigEntry<bool> enableLadderPatch;
+        public readonly ConfigEntry<bool> enableLandminePatch;
+        public readonly ConfigEntry<bool> enableOrbitDoorPatch;
+        public readonly ConfigEntry<bool> enableQuicksandPatch;
+        public readonly ConfigEntry<bool> enableTZPPatch;
+        public readonly ConfigEntry<bool> enableVentPatch;
 
         public ComicalCompanyConfig(ConfigFile cfg)
         {
             cfg.SaveOnConfigSet = false;
 
-            enableApparatusExplosion = cfg.Bind(
+            enableApparatusPatch = cfg.Bind(
                 "General",
                 "EasterApparatus",
                 true,
                 "It's celebration time"
             );
 
-            enableCoilheadCheating = cfg.Bind(
+            enableBoomBoxPatch = cfg.Bind(
+                "General",
+                "BackgroundMusic",
+                true,
+                "So it doesn't get boring inside"
+            );
+
+            enableCoilheadPatch = cfg.Bind(
                 "General",
                 "Blinking",
                 true,
                 "To hydrate the eye"
             );
 
-            enableEnemySizeAdjustments = cfg.Bind(
+            enableEnemySizePatch = cfg.Bind(
                 "General",
                 "RealisticEnemies",
                 true,
-                "Why is everything so big??"
+                "Why is everything so big?? now it's fixed"
             );
 
-            enableFallDamage = cfg.Bind(
+            enableFallDamagePatch = cfg.Bind(
                 "General",
                 "Gravity",
                 true,
                 "Ouch this hurts"
             );
 
-            enableGreenMode = cfg.Bind(
+            enableGovernmentPropertyPatch = cfg.Bind(
+                "General",
+                "GovernmentProperty",
+                true,
+                "This isn't yours to sell?? wtf"
+            );
+
+            enableGreenModePatch = cfg.Bind(
                 "General",
                 "Green",
                 true,
                 "Green"
             );
 
-            enableElectrocution = cfg.Bind(
+            enableItemChargerPatch = cfg.Bind(
                 "General",
                 "Electricity",
                 true,
                 "bzzzzzzzzzzzt"
             );
 
-            enableItemRenaming = cfg.Bind(
+            enableItemNamePatch = cfg.Bind(
                 "General",
                 "Translation",
                 true,
                 "Fixes the error in the language of the Lethal COmpany"
             );
 
-            enableJumpFailure = cfg.Bind(
+            enableJesterInfestation = cfg.Bind(
+                "General",
+                "Jest",
+                true,
+                "It's all a joke..."
+            );
+
+            enableJumpPatch = cfg.Bind(
                 "General",
                 "RealisticJumping",
                 true,
                 "Sometimes, you just can't, you know?"
             );
 
-            enableOrbitDoor = cfg.Bind(
+            enableLadderPatch = cfg.Bind(
+                "General",
+                "LongerLadders",
+                true,
+                "It does what it says on the tin"
+            );
+
+            enableLandminePatch = cfg.Bind(
+                "General",
+                "BetterLandmines",
+                true,
+                "Goodbye"
+            );
+
+            enableOrbitDoorPatch = cfg.Bind(
                 "General",
                 "FixDoorButton",
                 true,
                 "Occasionally, the door buttons won't work. This fix applies in those situations."
             );
 
-            enableShipVent = cfg.Bind(
+            enableQuicksandPatch = cfg.Bind(
                 "General",
-                "FreshAirInShip",
+                "BetterQuicksand",
                 true,
-                "It can get really stuffy in there"
+                "It's not called SLOWSAND is it?????"
             );
 
-            enableInstantTZP = cfg.Bind(
+            enableTZPPatch = cfg.Bind(
                 "General",
                 "Skooma",
                 true,
                 "M'aiq wishes you well."
+            );
+
+            enableVentPatch = cfg.Bind(
+                "General",
+                "FreshAirInShip",
+                true,
+                "It can get really stuffy in there"
             );
 
             ClearOrphanedEntries(cfg);

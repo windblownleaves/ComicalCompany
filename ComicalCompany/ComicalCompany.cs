@@ -1,6 +1,7 @@
 using BepInEx;
 using BepInEx.Logging;
 using ComicalCompany.Configuration;
+using ComicalCompany.Patches;
 using HarmonyLib;
 using System.IO;
 using System.Reflection;
@@ -46,7 +47,59 @@ namespace ComicalCompany
 
             Logger.LogDebug("Patching...");
 
-            Harmony.PatchAll();
+            //Harmony.PatchAll();
+
+            if (BoundConfig.enableApparatusPatch.Value)
+                Harmony.CreateClassProcessor(typeof(ApparatusPatch)).Patch();
+
+            if (BoundConfig.enableBoomBoxPatch.Value)
+                Harmony.CreateClassProcessor(typeof(BoomBoxPatch)).Patch();
+
+            if (BoundConfig.enableCoilheadPatch.Value)
+                Harmony.CreateClassProcessor(typeof(CoilheadPatch)).Patch();
+
+            if (BoundConfig.enableEnemySizePatch.Value)
+                Harmony.CreateClassProcessor(typeof(EnemySizePatch)).Patch();
+
+            if (BoundConfig.enableFallDamagePatch.Value)
+                Harmony.CreateClassProcessor(typeof(FallDamagePatch)).Patch();
+
+            if (BoundConfig.enableGovernmentPropertyPatch.Value)
+                Harmony.CreateClassProcessor(typeof(GovernmentPropertyPatch)).Patch();
+
+            if (BoundConfig.enableGreenModePatch.Value)
+                Harmony.CreateClassProcessor(typeof(GreenModePatch)).Patch();
+
+            if (BoundConfig.enableItemChargerPatch.Value)
+                Harmony.CreateClassProcessor(typeof(ItemChargerPatch)).Patch();
+
+            if (BoundConfig.enableItemNamePatch.Value)
+                Harmony.CreateClassProcessor(typeof(ItemNamePatch)).Patch();
+
+            if (BoundConfig.enableJesterInfestation.Value)
+                Harmony.CreateClassProcessor(typeof(JesterInfestation)).Patch();
+
+            if (BoundConfig.enableJumpPatch.Value)
+                Harmony.CreateClassProcessor(typeof(JumpPatch)).Patch();
+
+            if (BoundConfig.enableLadderPatch.Value)
+                Harmony.CreateClassProcessor(typeof(LadderPatch)).Patch();
+
+            if (BoundConfig.enableLandminePatch.Value)
+                Harmony.CreateClassProcessor(typeof(LandminePatch)).Patch();
+
+            if (BoundConfig.enableOrbitDoorPatch.Value)
+                Harmony.CreateClassProcessor(typeof(OrbitDoorPatch)).Patch();
+
+            if (BoundConfig.enableQuicksandPatch.Value)
+                Harmony.CreateClassProcessor(typeof(QuicksandPatch)).Patch();
+
+            if (BoundConfig.enableTZPPatch.Value)
+                Harmony.CreateClassProcessor(typeof(TZPPatch)).Patch();
+
+            if (BoundConfig.enableVentPatch.Value)
+                Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
+
             // Log harmony patched methods
             Logger.LogInfo("Patched methods:");
             foreach (var patch in Harmony.GetPatchedMethods())

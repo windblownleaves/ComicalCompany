@@ -9,11 +9,6 @@ namespace ComicalCompany.Patches
         [HarmonyPostfix]
         public static void ItemStartPatch(GrabbableObject __instance)
         {
-            if (!ComicalCompany.BoundConfig.enableItemRenaming.Value)
-            {
-                return;
-            }
-
             switch (__instance.name)
             {
                 case "Airhorn(Clone)":
