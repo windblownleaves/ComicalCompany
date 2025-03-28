@@ -20,7 +20,10 @@ namespace ComicalCompany.Patches
                 ComicalCompany.Logger.LogError("Can't find ship ladder(s)");
                 return;
             }
+            
 
+            ladder0.SetActive(false);
+            ladder1.SetActive(false);
             GameObject longLadder0 = GameObject.Instantiate(longLadder);
             GameObject longLadder1 = GameObject.Instantiate(longLadder);
 
@@ -28,13 +31,11 @@ namespace ComicalCompany.Patches
             longLadder0.transform.rotation = ladder0.transform.rotation;
             longLadder0.name = ladder0.name;
             longLadder0.transform.parent = ladder0.transform.parent;
-            GameObject.Destroy(ladder0);
 
             longLadder1.transform.position = new Vector3(ladder1.transform.position.x, -13.0f, ladder1.transform.position.z);
             longLadder1.transform.rotation = ladder1.transform.rotation;
             longLadder1.name = ladder1.name;
             longLadder1.transform.parent = ladder1.transform.parent;
-            GameObject.Destroy(ladder1);
         }
     }
 }

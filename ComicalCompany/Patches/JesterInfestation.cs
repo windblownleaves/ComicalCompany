@@ -16,7 +16,7 @@ namespace ComicalCompany.Patches
         {
             foreach (var instruction in instructions)
             {
-                    if (instruction.opcode == OpCodes.Ldstr && instruction.operand is string str && str == "Nutcracker")
+                if (instruction.opcode == OpCodes.Ldstr && instruction.operand is string str && str == "Nutcracker")
                 {
                     yield return new CodeInstruction(OpCodes.Ldstr, "Jester");
                 }

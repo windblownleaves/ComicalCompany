@@ -6,7 +6,6 @@ namespace ComicalCompany.Patches
     [HarmonyPatch]
     public class LandminePatch
     {
-        // Patch landmines to apply a force to the player when they explode
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Landmine), "Detonate")]
         public static void Detonate(Landmine __instance, ref bool __runOriginal)

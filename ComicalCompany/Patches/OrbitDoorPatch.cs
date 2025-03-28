@@ -1,5 +1,11 @@
 ﻿using HarmonyLib;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Text;
 
 namespace ComicalCompany.Patches
 {
@@ -14,10 +20,13 @@ namespace ComicalCompany.Patches
             UnityEngine.Object.FindObjectOfType<HangarShipDoor>().SetDoorButtonsEnabled(true);
         }
 
+
         [HarmonyPrefix]
         [HarmonyPatch(typeof(HangarShipDoor), "SetDoorOpen")]
-        public static void SetDoorOpen(ref bool __runOriginal)
+        public static void SetDoorOpen(HangarShipDoor __instance, ref bool __runOriginal)
         {
+            // if not server, return
+
             if (StartOfRound.Instance.inShipPhase)
             {
                 StartOfRound.Instance.FirePlayersAfterDeadlineClientRpc(new int[] {
@@ -59,5 +68,8 @@ namespace ComicalCompany.Patches
                 ComicalCompany.Logger.LogInfo("Doors closed after reset.");
             }
         }
+
+
+
     }
 }

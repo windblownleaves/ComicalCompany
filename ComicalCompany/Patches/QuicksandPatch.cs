@@ -13,9 +13,8 @@ namespace ComicalCompany.Patches
         {
             if (!patched)
             {
-                ComicalCompany.Logger.LogInfo("Patched quicksand.");
 
-                __instance.sinkingSpeedMultiplier = 2.0f;
+                __instance.sinkingSpeedMultiplier = 1.75f;
             }
         }
     }

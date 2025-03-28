@@ -44,7 +44,7 @@ namespace ComicalCompany.Patches
             if (currentlyHeldObjectServer == null || (currentlyHeldObjectServer.itemProperties.isConductiveMetal && !currentlyHeldObjectServer.itemProperties.requiresBattery))
             {
                 __runOriginal = false;
-                __instance.StartCoroutine(explosionRoutine(__instance));
+                Utils.Networking.ChargeItemServerRPC(__instance);
 
             }
             else
@@ -59,7 +59,7 @@ namespace ComicalCompany.Patches
             __instance.zapAudio.Play();
             yield return new WaitForSeconds(0.75f);
             __instance.chargeStationAnimator.SetTrigger("zap");
-            Landmine.SpawnExplosion(__instance.transform.position, spawnExplosionEffect: true, 1f, 6f, physicsForce:10f);
+            Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 20, 10f);
         }
     }
 
