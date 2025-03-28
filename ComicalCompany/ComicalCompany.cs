@@ -2,6 +2,7 @@ using BepInEx;
 using BepInEx.Logging;
 using ComicalCompany.Configuration;
 using ComicalCompany.Patches;
+using ComicalCompany.Utils;
 using HarmonyLib;
 using System.IO;
 using System.Reflection;
@@ -99,6 +100,8 @@ namespace ComicalCompany
 
             if (BoundConfig.enableVentPatch.Value)
                 Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
+
+            Harmony.CreateClassProcessor(typeof(RoundManagerPatch)).Patch();
 
             // Log harmony patched methods
             Logger.LogInfo("Patched methods:");

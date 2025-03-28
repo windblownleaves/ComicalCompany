@@ -28,7 +28,7 @@ namespace ComicalCompany.Patches
                 {
                     ComicalCompany.Logger.LogInfo("Triggering explosion");
 
-                    Utils.Networking.SpawnEasterEggExplosionServerRpc(explosionPrefab, __instance.transform.position);
+                    Utils.ComicalNetworking.Instance?.SpawnEasterEggExplosionServerRpc(__instance.transform.position);
 
                     UnityEngine.Object.Destroy(__instance.gameObject);
                     MeshRenderer[] componentsInChildren = __instance.gameObject.GetComponentsInChildren<MeshRenderer>();

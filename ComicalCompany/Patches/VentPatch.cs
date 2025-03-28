@@ -29,7 +29,7 @@ namespace ComicalCompany.Patches
                 netObj.Spawn();
             }
 
-            ventInstance.transform.position = vanillaVent.transform.position + new Vector3(0, 0, 1);
+            ventInstance.transform.position = vanillaVent.transform.position + new Vector3(0, 0, 0.1f);
             ventInstance.transform.rotation = vanillaVent.transform.rotation;
             ventInstance.name = vanillaVent.name;
             ventInstance.transform.parent = vanillaVent.transform.parent;

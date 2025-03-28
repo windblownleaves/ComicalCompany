@@ -22,7 +22,7 @@ namespace ComicalCompany.Patches
             if (__instance.gameObject.GetComponent<GrabbableObject>().itemProperties.automaticallySetUsingPower)
             {
                 ComicalCompany.Logger.LogInfo("Boom Box exploded!");
-                Utils.Networking.SpawnLandmineServerRpc(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
+                Utils.ComicalNetworking.Instance?.SpawnLandmineServerRpc(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
                 __instance.playerHeldBy?.DestroyItemInSlot(__instance.playerHeldBy.currentItemSlot);
             }
 
