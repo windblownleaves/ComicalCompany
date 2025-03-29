@@ -15,12 +15,14 @@ namespace ComicalCompany.Patches
             if (__instance.GetType() == typeof(ForestGiantAI))
             {
                 __instance.transform.localScale = __instance.transform.localScale / 4;
-                __instance.enemyType.enemyName = "Forest";
-                __instance.gameObject.GetComponent<ScanNodeProperties>().headerText = "Forest";
             }
             else if (__instance.GetType() == typeof(SandSpiderAI))
             {
                 __instance.transform.localScale = __instance.transform.localScale / 3;
+            }
+            else if (__instance.GetType() == typeof(RadMechAI))
+            {
+                __instance.transform.localScale = __instance.transform.localScale / 4;
             }
         }
 

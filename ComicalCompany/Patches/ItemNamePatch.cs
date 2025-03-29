@@ -257,7 +257,7 @@ namespace ComicalCompany.Patches
                     __instance.itemProperties.itemName = "Dog action figure";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Dog action figure";
                     break;
-                
+
                 case "BBFlashlight(Clone)":
                     __instance.itemProperties.itemName = "Flashlghti";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Flashlghti";
@@ -315,6 +315,135 @@ namespace ComicalCompany.Patches
                     __instance.itemProperties.itemName = "Skooma";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Skooma";
                     break;
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(EnemyAI), "Start")]
+        public static void Awake(EnemyAI __instance)
+        {
+            if (__instance.GetType() == typeof(ForestGiantAI))
+            {
+                __instance.enemyType.enemyName = "Forest";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Forest";
+            }
+            else if (__instance.GetType() == typeof(SandSpiderAI))
+            {
+                __instance.enemyType.enemyName = "Leg...";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Leg...";
+            }
+            else if (__instance.GetType() == typeof(ClaySurgeonAI))
+            {
+                __instance.enemyType.enemyName = "Origami maker (you are the origami)";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Origami maker (you are the origami)";
+            }
+            else if (__instance.GetType() == typeof(FlowermanAI))
+            {
+                __instance.enemyType.enemyName = "Unlockable character";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Unlockable character";
+            }
+            else if (__instance.GetType() == typeof(ButlerEnemyAI))
+            {
+                __instance.enemyType.enemyName = "A brit";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "A brit";
+            }
+            else if (__instance.GetType() == typeof(SpringManAI))
+            {
+                __instance.enemyType.enemyName = "Are you sure?";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Are you sure?";
+            }
+            else if (__instance.GetType() == typeof(DressGirlAI))
+            {
+                // don't do anything; no scannode
+            }
+            else if (__instance.GetType() == typeof(HoarderBugAI))
+            {
+                __instance.enemyType.enemyName = "Communism";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Communism";
+            }
+            else if (__instance.GetType() == typeof(BlobAI))
+            {
+                __instance.enemyType.enemyName = "Play-doh";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Play-doh";
+            }
+            else if (__instance.GetType() == typeof(JesterAI))
+            {
+                __instance.enemyType.enemyName = "Background music";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Background music";
+            }
+            else if (__instance.GetType() == typeof(CaveDwellerAI))
+            {
+                __instance.enemyType.enemyName = "Baby (grown up)";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Baby (grown up)";
+            }
+            else if (__instance.GetType() == typeof(MaskedPlayerEnemy))
+            {
+                // don't do anything
+            }
+            else if (__instance.GetType() == typeof(ButlerBeesEnemyAI))
+            {
+                __instance.enemyType.enemyName = "Bloody hell innit";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Bloody hell innit";
+            }
+            else if (__instance.GetType() == typeof(NutcrackerEnemyAI))
+            {
+                __instance.enemyType.enemyName = "James Moore, petty officer third class";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "James Moore, petty officer third class";
+            }
+            else if (__instance.GetType() == typeof(CentipedeAI))
+            {
+                __instance.enemyType.enemyName = "Mphhhmhh";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Mphhhmhh";
+            }
+            else if (__instance.GetType() == typeof(PufferAI))
+            {
+                __instance.enemyType.enemyName = "Thumper";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Thumper";
+            }
+            else if (__instance.GetType() == typeof(CrawlerAI))
+            {
+                __instance.enemyType.enemyName = "Spore Lizard";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Spore Lizard";
+            }
+            else if (__instance.GetType() == typeof(BaboonBirdAI))
+            {
+                __instance.enemyType.enemyName = "Coward";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Coward";
+            }
+            else if (__instance.GetType() == typeof(SandWormAI))
+            {
+                __instance.enemyType.enemyName = "DUNE intellectual property";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "DUNE intellectual property";
+            }
+            else if (__instance.GetType() == typeof(MouthDogAI))
+            {
+                __instance.enemyType.enemyName = "He doesn't bite";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "He doesn't bite";
+            }
+            else if (__instance.GetType() == typeof(RadMechAI))
+            {
+                __instance.enemyType.enemyName = "Old bird action figure (gone wrong)";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Old bird action figure (gone wrong)";
+            }
+            else if (__instance.GetType() == typeof(RedLocustBees))
+            {
+                __instance.enemyType.enemyName = "Roaming locust";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Roaming locust";
+            }
+            else if (__instance.GetType() == typeof(DoublewingAI))
+            {
+                __instance.enemyType.enemyName = "Birb";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Birb";
+            }
+            else if (__instance.GetType() == typeof(DocileLocustBeesAI))
+            {
+                __instance.enemyType.enemyName = "Circuit bees";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Circuit bees";
+            }
+            else if (__instance.GetType() == typeof(FlowerSnakeEnemy))
+            {
+                __instance.enemyType.enemyName = "GET OFF OF ME";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "GET OFF OF ME";
             }
         }
     }
