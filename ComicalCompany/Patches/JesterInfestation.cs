@@ -18,6 +18,9 @@ namespace ComicalCompany.Patches
             {
                 if (instruction.opcode == OpCodes.Ldstr && instruction.operand is string str && str == "Nutcracker")
                 {
+                    // log the instruction
+                    ComicalCompany.Logger.LogInfo($"Found instruction: {instruction}");
+
                     yield return new CodeInstruction(OpCodes.Ldstr, "Jester");
                 }
                 else

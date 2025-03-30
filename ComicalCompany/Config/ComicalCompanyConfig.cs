@@ -26,6 +26,8 @@ namespace ComicalCompany.Configuration
         public readonly ConfigEntry<bool> enableQuicksandPatch;
         public readonly ConfigEntry<bool> enableTZPPatch;
         public readonly ConfigEntry<bool> enableVentPatch;
+        public readonly ConfigEntry<bool> enableSwitchPatch;
+        public readonly ConfigEntry<bool> enableTeleporterPatch;
 
         public ComicalCompanyConfig(ConfigFile cfg)
         {
@@ -148,6 +150,20 @@ namespace ComicalCompany.Configuration
                 "FreshAirInShip",
                 true,
                 "It can get really stuffy in there"
+            );
+
+            enableSwitchPatch = cfg.Bind(
+                "General",
+                "SwitchSwitches",
+                true,
+                "Wait, that wasn't the lights!"
+            );
+
+            enableTeleporterPatch = cfg.Bind(
+                "General",
+                "FaultyTeleportation",
+                true,
+                "Transmitting someone as pure energy is tricky. Sometimes the data gets corrupted on arrival."
             );
 
             ClearOrphanedEntries(cfg);

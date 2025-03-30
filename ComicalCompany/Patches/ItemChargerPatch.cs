@@ -44,7 +44,7 @@ namespace ComicalCompany.Patches
             if (currentlyHeldObjectServer == null || (currentlyHeldObjectServer.itemProperties.isConductiveMetal && !currentlyHeldObjectServer.itemProperties.requiresBattery))
             {
                 __runOriginal = false;
-                Utils.ComicalNetworking.Instance?.ChargeItemServerRPC(__instance);
+                Utils.ComicalNetworking.Instance?.ChargeItemServerRPC();
 
             }
             else

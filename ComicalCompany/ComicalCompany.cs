@@ -40,6 +40,27 @@ namespace ComicalCompany
                 Logger.LogError("Failed to load custom assets."); // ManualLogSource for your plugin
                 return;
             }
+            EnemySizePatch.Lollypop = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/Lollypop.prefab");
+            EnemySizePatch.FunnyHat = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/FunnyHat.prefab");
+
+            NetcodePatcher(); // ONLY RUN ONCE //
+        }
+
+        private static void NetcodePatcher()
+        {
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (var type in types)
+            {
+                var methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+                foreach (var method in methods)
+                {
+                    var attributes = method.GetCustomAttributes(typeof(RuntimeInitializeOnLoadMethodAttribute), false);
+                    if (attributes.Length > 0)
+                    {
+                        method.Invoke(null, null);
+                    }
+                }
+            }
         }
 
         internal static void Patch()
@@ -49,6 +70,16 @@ namespace ComicalCompany
             Logger.LogDebug("Patching...");
 
             //Harmony.PatchAll();
+            // Non-Negotiable Patches
+            Harmony.CreateClassProcessor(typeof(NetworkingPatch)).Patch();
+            Harmony.CreateClassProcessor(typeof(StartOfRoundPatch)).Patch();
+
+
+            if (BoundConfig.enableSwitchPatch.Value)
+                Harmony.CreateClassProcessor(typeof(SwitchPatch)).Patch();
+
+            if (BoundConfig.enableTeleporterPatch.Value)
+                Harmony.CreateClassProcessor(typeof(TeleporterPatch)).Patch();
 
             if (BoundConfig.enableApparatusPatch.Value)
                 Harmony.CreateClassProcessor(typeof(ApparatusPatch)).Patch();
@@ -104,8 +135,6 @@ namespace ComicalCompany
             Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
             Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
             //Harmony.CreateClassProcessor(typeof(BlobPatch)).Patch();
-
-            Harmony.CreateClassProcessor(typeof(RoundManagerPatch)).Patch();
 
             // Log harmony patched methods
             Logger.LogInfo("Patched methods:");
