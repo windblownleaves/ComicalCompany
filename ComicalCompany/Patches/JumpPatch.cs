@@ -15,7 +15,7 @@ namespace ComicalCompany.Patches
         public static void Jump_performed(InputAction.CallbackContext context, ref bool __runOriginal)
         {
             // 2% chance to not jump
-            if (UnityEngine.Random.Range(0, 100) < 20)
+            if (UnityEngine.Random.Range(0, 100) < 2)
             {
                 ComicalCompany.Logger.LogInfo("Cancelled jumping!");
                 __runOriginal = false;

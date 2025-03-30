@@ -363,8 +363,8 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(BlobAI))
             {
-                __instance.enemyType.enemyName = "Play-doh";
-                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Play-doh";
+                __instance.enemyType.enemyName = "Gatorade puddle";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Gatorade puddle";
             }
             else if (__instance.GetType() == typeof(JesterAI))
             {

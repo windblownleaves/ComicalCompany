@@ -101,6 +101,10 @@ namespace ComicalCompany
             if (BoundConfig.enableVentPatch.Value)
                 Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
 
+            Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
+            Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
+            //Harmony.CreateClassProcessor(typeof(BlobPatch)).Patch();
+
             Harmony.CreateClassProcessor(typeof(RoundManagerPatch)).Patch();
 
             // Log harmony patched methods

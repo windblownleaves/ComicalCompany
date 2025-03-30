@@ -14,7 +14,6 @@ namespace ComicalCompany.Patches
             if (!patched)
             {
                 __instance.sinkingSpeedMultiplier = 1.75f;
-                patched = true;
             }
         }
     }

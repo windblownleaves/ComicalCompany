@@ -8,13 +8,13 @@ namespace ComicalCompany.Patches
     [HarmonyPatch(typeof(RoundManager))]
     public class GreenModePatch
     {
-        private static float greenModePercentChance = 10f;
+        private static float greenModePercentChance = 1f;
 
         [HarmonyPatch(nameof(RoundManager.GenerateNewLevelClientRpc))]
         [HarmonyPrefix]
         private static void GenerateLevelPrefix()
         {
-            if (Random.Range(0, 100) > greenModePercentChance)
+            if (Random.Range(0, 100) >= greenModePercentChance)
             {
                 return;
             }

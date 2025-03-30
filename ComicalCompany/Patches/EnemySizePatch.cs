@@ -18,11 +18,11 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(SandSpiderAI))
             {
-                __instance.transform.localScale = __instance.transform.localScale / 3;
+                __instance.transform.localScale = __instance.transform.localScale / 5;
             }
             else if (__instance.GetType() == typeof(RadMechAI))
             {
-                __instance.transform.localScale = __instance.transform.localScale / 4;
+                __instance.transform.localScale = __instance.transform.localScale / 5;
             }
         }
 

@@ -1,41 +1,48 @@
 ﻿using HarmonyLib;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace ComicalCompany.Patches
 {
-    [HarmonyPatch(typeof(StartOfRound))]
+    [HarmonyPatch(typeof(HangarShipDoor))]
     public class LadderPatch
     {
-        [HarmonyPatch(nameof(StartOfRound.StartGame))]
+        private static bool hasPatchedLadders = false;
+
+        [HarmonyPatch(nameof(HangarShipDoor.SetDoorButtonsEnabled))]
         [HarmonyPostfix]
-        private static void GameLoadPostfix()
+        private static void HangarDoorsOpenPostfix()
         {
-            GameObject longLadder = ComicalCompany.assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/newladder.prefab");
+            if (hasPatchedLadders)
+            {
+                return;
+            }
+            hasPatchedLadders = true;
 
             GameObject ladder0 = GameObject.Find("LadderShort");
             GameObject ladder1 = GameObject.Find("LadderShort (1)");
+            GameObject[] ladders = { ladder0, ladder1 };
 
-            if (ladder0 == null || ladder1 == null)
+            GameObject ladderMesh = GameObject.Find("OutsideShipRoom/Ladder");
+            ComicalCompany.Logger.LogError(ladderMesh);
+
+            foreach (GameObject ladder in ladders)
             {
-                ComicalCompany.Logger.LogError("Can't find ship ladder(s)");
-                return;
+                BoxCollider collider = ladder.GetComponentInChildren<BoxCollider>();
+                collider.size = new Vector3(1, 2.6f, 0.594941f);
+                collider.center = new Vector3(0, -1.34f, -0.2025296f);
+
+                for (int i = 0; i < 3; i++)
+                { 
+                    GameObject instance = Object.Instantiate(ladderMesh, Vector3.zero, Quaternion.identity, ladder.transform);
+                    instance.transform.GetChild(0).gameObject.SetActive(false);
+                    instance.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    instance.transform.localScale = Vector3.one;
+                    instance.transform.localPosition = new Vector3(0, -7.321347f, 0) + i * new Vector3(0, -9.044013f, 0);
+
+                    ComicalCompany.Logger.LogError("Processed instance.");
+                }
             }
-            
-
-            ladder0.SetActive(false);
-            ladder1.SetActive(false);
-            GameObject longLadder0 = GameObject.Instantiate(longLadder);
-            GameObject longLadder1 = GameObject.Instantiate(longLadder);
-
-            longLadder0.transform.position = new Vector3(ladder0.transform.position.x, -13.0f, ladder0.transform.position.z);
-            longLadder0.transform.rotation = ladder0.transform.rotation;
-            longLadder0.name = ladder0.name;
-            longLadder0.transform.parent = ladder0.transform.parent;
-
-            longLadder1.transform.position = new Vector3(ladder1.transform.position.x, -13.0f, ladder1.transform.position.z);
-            longLadder1.transform.rotation = ladder1.transform.rotation;
-            longLadder1.name = ladder1.name;
-            longLadder1.transform.parent = ladder1.transform.parent;
         }
     }
 }
