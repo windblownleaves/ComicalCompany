@@ -35,14 +35,12 @@ namespace ComicalCompany.Utils
         [ServerRpc(RequireOwnership = false)]
         public void ChargeItemServerRPC()
         {
-            ComicalCompany.Logger.LogInfo("Charging item server");
             ChargeItemClientRPC();
         }
 
         [ClientRpc]
         public void ChargeItemClientRPC()
         {
-            ComicalCompany.Logger.LogInfo("Charging item");
             ItemCharger itemCharger = GameObject.FindObjectOfType<ItemCharger>();
             itemCharger.StartCoroutine(ItemChargerPatch.explosionRoutine(itemCharger));
         }
@@ -56,8 +54,12 @@ namespace ComicalCompany.Utils
         [ClientRpc]
         public void SpawnEasterEggExplosionClientRpc(Vector3 position)
         {
-            ComicalCompany.Logger.LogInfo("Inside SpawnEasterEggExplosionClientRpc");
-            GameObject egg = StartOfRound.Instance.allItemsList.itemsList.Find(item => item.itemName.ToLower().Contains("easter")).spawnPrefab;
+            GameObject? egg = StartOfRound.Instance.allItemsList.itemsList.Find(item => item.itemName.ToLower().Contains("easter") || item.itemName.ToLower().Contains("spheroid"))?.spawnPrefab;
+            if (egg == null)
+            {
+                ComicalCompany.Logger.LogWarning("Egg not found in allItemsList!");
+                return;
+            }
             StunGrenadeItem eggInstance = Instantiate(egg, position, Quaternion.identity).GetComponent<StunGrenadeItem>();
             eggInstance.explodeOnThrow = true;
             eggInstance.explodeOnCollision = true;

@@ -21,9 +21,9 @@ namespace ComicalCompany.Patches
             if (randomTimer > 2)
             {
                 randomTimer = 0;
-                randomval = Random.Range(0f, 1f);
+                randomval = Random.value;
             }
-            if (randomval < 0.1f)
+            if (Random.value < 0.025f)
             {
                 return false;
             }

@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -35,11 +38,17 @@ namespace ComicalCompany.Patches
         [HarmonyPatch(typeof(ItemCharger), "ChargeItem")]
         public static void ChargeItem(ref ItemCharger __instance, ref bool __runOriginal)
         {
+            if (StartOfRound.Instance.inShipPhase)
+            {
+                __runOriginal = true;
+                return;
+            }
             GrabbableObject currentlyHeldObjectServer = GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer;
             if (currentlyHeldObjectServer == null || (currentlyHeldObjectServer.itemProperties.isConductiveMetal && !currentlyHeldObjectServer.itemProperties.requiresBattery))
             {
                 __runOriginal = false;
                 Utils.ComicalNetworking.Instance?.ChargeItemServerRPC();
+
             }
             else
             {
@@ -53,7 +62,10 @@ namespace ComicalCompany.Patches
             __instance.zapAudio.Play();
             yield return new WaitForSeconds(0.75f);
             __instance.chargeStationAnimator.SetTrigger("zap");
-            Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 20, 10f);
+            
+            Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 60, 10f);
         }
     }
+
+    
 }
