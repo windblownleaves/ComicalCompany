@@ -21,15 +21,12 @@ namespace ComicalCompany.Patches
         {
             __runOriginal = true;
 
-            // some issues with this
-            ComicalCompany.Logger.LogInfo("Beaming up player");
             if (StartOfRound.Instance.shipIsLeaving)
             {
                 return;
             }
             if (UnityEngine.Random.value < 0.08f)
             {
-                ComicalCompany.Logger.LogInfo("Beaming up mimic");
                 __result = teleportMasked(__instance);
                 __runOriginal = false;
                 return;

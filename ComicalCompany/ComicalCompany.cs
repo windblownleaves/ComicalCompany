@@ -2,9 +2,8 @@ using BepInEx;
 using BepInEx.Logging;
 using ComicalCompany.Configuration;
 using ComicalCompany.Patches;
-using ComicalCompany.Utils;
 using HarmonyLib;
-using System.Collections;
+using System;
 using System.IO;
 using System.Reflection;
 using Unity.Netcode;
@@ -35,8 +34,6 @@ namespace ComicalCompany
             Logger = base.Logger;
             Instance = this;
 
-            Logger.LogError("Awake is running.");
-
             BoundConfig = new ComicalCompanyConfig(Config);
 
             Patch();
@@ -64,13 +61,10 @@ namespace ComicalCompany
         {
             if (prefabRegistered) return;
 
-            ComicalCompany.Logger.LogError("Start is running.");
-
             if (NetworkManager.Singleton != null && ventPrefab != null)
             {
                 NetworkManager.Singleton.AddNetworkPrefab(ventPrefab);
                 prefabRegistered = true;
-                ComicalCompany.Logger.LogError("Registered enemy vent prefab with NetworkManager: " + ventPrefab.GetHashCode() + ", " + ventPrefab.GetComponent<NetworkObject>().GlobalObjectIdHash);
             }
         }
 
@@ -97,74 +91,78 @@ namespace ComicalCompany
 
             Logger.LogDebug("Patching...");
 
-            //Harmony.PatchAll();
-            // Non-Negotiable Patches
-            Harmony.CreateClassProcessor(typeof(NetworkingPatch)).Patch();
-            Harmony.CreateClassProcessor(typeof(StartOfRoundPatch)).Patch();
+            if ((DateTime.UtcNow.Month == 4 && DateTime.UtcNow.Day == 1)
+                || (DateTime.UtcNow.Month == 3 && DateTime.UtcNow.Day == 31)
+                || (DateTime.UtcNow.Month == 4 && DateTime.UtcNow.Day == 2)
+                || BoundConfig.alwaysEnableMod.Value)
+            {
+                // Non-Negotiable Patches
+                Harmony.CreateClassProcessor(typeof(NetworkingPatch)).Patch();
+                Harmony.CreateClassProcessor(typeof(StartOfRoundPatch)).Patch();
 
+                if (BoundConfig.enableSwitchPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(SwitchPatch)).Patch();
 
-            if (BoundConfig.enableSwitchPatch.Value)
-                Harmony.CreateClassProcessor(typeof(SwitchPatch)).Patch();
+                if (BoundConfig.enableTeleporterPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(TeleporterPatch)).Patch();
 
-            if (BoundConfig.enableTeleporterPatch.Value)
-                Harmony.CreateClassProcessor(typeof(TeleporterPatch)).Patch();
+                if (BoundConfig.enableApparatusPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(ApparatusPatch)).Patch();
 
-            if (BoundConfig.enableApparatusPatch.Value)
-                Harmony.CreateClassProcessor(typeof(ApparatusPatch)).Patch();
+                if (BoundConfig.enableBoomBoxPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(BoomBoxPatch)).Patch();
 
-            if (BoundConfig.enableBoomBoxPatch.Value)
-                Harmony.CreateClassProcessor(typeof(BoomBoxPatch)).Patch();
+                if (BoundConfig.enableCoilheadPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(CoilheadPatch)).Patch();
 
-            if (BoundConfig.enableCoilheadPatch.Value)
-                Harmony.CreateClassProcessor(typeof(CoilheadPatch)).Patch();
+                if (BoundConfig.enableEnemySizePatch.Value)
+                    Harmony.CreateClassProcessor(typeof(EnemySizePatch)).Patch();
 
-            if (BoundConfig.enableEnemySizePatch.Value)
-                Harmony.CreateClassProcessor(typeof(EnemySizePatch)).Patch();
+                if (BoundConfig.enableFallDamagePatch.Value)
+                    Harmony.CreateClassProcessor(typeof(FallDamagePatch)).Patch();
 
-            if (BoundConfig.enableFallDamagePatch.Value)
-                Harmony.CreateClassProcessor(typeof(FallDamagePatch)).Patch();
+                if (BoundConfig.enableGovernmentPropertyPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(GovernmentPropertyPatch)).Patch();
 
-            if (BoundConfig.enableGovernmentPropertyPatch.Value)
-                Harmony.CreateClassProcessor(typeof(GovernmentPropertyPatch)).Patch();
+                if (BoundConfig.enableGreenModePatch.Value)
+                    Harmony.CreateClassProcessor(typeof(GreenModePatch)).Patch();
 
-            if (BoundConfig.enableGreenModePatch.Value)
-                Harmony.CreateClassProcessor(typeof(GreenModePatch)).Patch();
+                if (BoundConfig.enableItemChargerPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(ItemChargerPatch)).Patch();
 
-            if (BoundConfig.enableItemChargerPatch.Value)
-                Harmony.CreateClassProcessor(typeof(ItemChargerPatch)).Patch();
+                if (BoundConfig.enableItemNamePatch.Value)
+                    Harmony.CreateClassProcessor(typeof(ItemNamePatch)).Patch();
 
-            if (BoundConfig.enableItemNamePatch.Value)
-                Harmony.CreateClassProcessor(typeof(ItemNamePatch)).Patch();
+                if (BoundConfig.enableJesterInfestation.Value)
+                    Harmony.CreateClassProcessor(typeof(JesterInfestation)).Patch();
 
-            if (BoundConfig.enableJesterInfestation.Value)
-                Harmony.CreateClassProcessor(typeof(JesterInfestation)).Patch();
+                if (BoundConfig.enableJumpPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(JumpPatch)).Patch();
 
-            if (BoundConfig.enableJumpPatch.Value)
-                Harmony.CreateClassProcessor(typeof(JumpPatch)).Patch();
+                if (BoundConfig.enableLadderPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(LadderPatch)).Patch();
 
-            if (BoundConfig.enableLadderPatch.Value)
-                Harmony.CreateClassProcessor(typeof(LadderPatch)).Patch();
+                if (BoundConfig.enableLandminePatch.Value)
+                    Harmony.CreateClassProcessor(typeof(LandminePatch)).Patch();
 
-            if (BoundConfig.enableLandminePatch.Value)
-                Harmony.CreateClassProcessor(typeof(LandminePatch)).Patch();
+                if (BoundConfig.enableOrbitDoorPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(OrbitDoorPatch)).Patch();
 
-            if (BoundConfig.enableOrbitDoorPatch.Value)
-                Harmony.CreateClassProcessor(typeof(OrbitDoorPatch)).Patch();
+                if (BoundConfig.enableQuicksandPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(QuicksandPatch)).Patch();
 
-            if (BoundConfig.enableQuicksandPatch.Value)
-                Harmony.CreateClassProcessor(typeof(QuicksandPatch)).Patch();
+                if (BoundConfig.enableTZPPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(TZPPatch)).Patch();
 
-            if (BoundConfig.enableTZPPatch.Value)
-                Harmony.CreateClassProcessor(typeof(TZPPatch)).Patch();
+                if (BoundConfig.enableVentPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
 
-            if (BoundConfig.enableVentPatch.Value)
-                Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
+                if (BoundConfig.enablePropsPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
 
-            if (BoundConfig.enablePropsPatch.Value)
-                Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
-
-            if (BoundConfig.enableInspirationPatch.Value)
-                Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
+                if (BoundConfig.enableInspirationPatch.Value)
+                    Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
+            }
 
             // Log harmony patched methods
             Logger.LogInfo("Patched methods:");

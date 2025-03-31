@@ -30,6 +30,7 @@ namespace ComicalCompany.Configuration
         public readonly ConfigEntry<bool> enableTeleporterPatch;
         public readonly ConfigEntry<bool> enableInspirationPatch;
         public readonly ConfigEntry<bool> enablePropsPatch;
+        public readonly ConfigEntry<bool> alwaysEnableMod;
 
         public ComicalCompanyConfig(ConfigFile cfg)
         {
@@ -180,6 +181,13 @@ namespace ComicalCompany.Configuration
                 "Terraforming",
                 true,
                 "It's like a whole new map every time!"
+            );
+
+            alwaysEnableMod = cfg.Bind(
+                "Generaler",
+                "AlwaysEnable",
+                false,
+                "Even when it's not April 1st :)"
             );
 
             ClearOrphanedEntries(cfg);

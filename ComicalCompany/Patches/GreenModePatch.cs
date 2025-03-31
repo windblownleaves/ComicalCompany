@@ -5,14 +5,14 @@ using UnityEngine.Rendering.HighDefinition;
 
 namespace ComicalCompany.Patches
 {
-    [HarmonyPatch(typeof(RoundManager))]
+    [HarmonyPatch]
     public class GreenModePatch
     {
-        private static float greenModePercentChance = 1f;
+        private static float greenModePercentChance = 2f;
 
-        [HarmonyPatch(nameof(RoundManager.GenerateNewLevelClientRpc))]
-        [HarmonyPrefix]
-        private static void GenerateLevelPrefix()
+        [HarmonyPatch(typeof(StartOfRound), "StartGame")]
+        [HarmonyPostfix]
+        private static void StartGamePostfix()
         {
             if (Random.Range(0, 100) >= greenModePercentChance)
             {
@@ -24,7 +24,7 @@ namespace ComicalCompany.Patches
 
             if (mainVolume == null)
             {
-                ComicalCompany.Logger.LogWarning("Main volume not found. Skipping green mode...");
+                ComicalCompany.Logger.LogError("Main volume not found. Skipping green mode...");
                 return;
             }
 
@@ -40,7 +40,7 @@ namespace ComicalCompany.Patches
             }
         }
 
-        [HarmonyPatch(nameof(RoundManager.DespawnPropsAtEndOfRound))]
+        [HarmonyPatch(typeof(RoundManager), "DespawnPropsAtEndOfRound")]
         [HarmonyPrefix]
         private static void DespawnPropsPrefix()
         {

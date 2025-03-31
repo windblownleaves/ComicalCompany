@@ -9,35 +9,6 @@ namespace ComicalCompany.Patches
     {
         public static GameObject? boomBoxItem;
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(BoomboxItem), "StartMusic")]
-        public static void startMusicPatch(BoomboxItem __instance)
-        {
-            ComicalCompany.Logger.LogInfo("[Harmony Patch] ItemActivate called");
-
-            // Check each field and log if it's null
-            if (__instance.boomboxAudio == null)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] boomboxAudio is null!");
-
-            if (__instance.musicAudios == null)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] musicAudios is null!");
-            else if (__instance.musicAudios.Length == 0)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] musicAudios array is empty!");
-
-            if (__instance.stopAudios == null)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] stopAudios is null!");
-            else if (__instance.stopAudios.Length == 0)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] stopAudios array is empty!");
-
-            if (__instance.musicRandomizer == null)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] musicRandomizer is null!");
-
-            if (__instance.musicPitchDown == null)
-                ComicalCompany.Logger.LogInfo("[Harmony Patch] musicPitchDown coroutine is null!");
-
-            ComicalCompany.Logger.LogInfo("[Harmony Patch] ItemActivate check completed.");
-        }
-
         [HarmonyPostfix]
         [HarmonyPatch(typeof(BoomboxItem), "ItemActivate")]
         public static void ItemActivate(BoomboxItem __instance)
@@ -47,7 +18,6 @@ namespace ComicalCompany.Patches
             {
                 // check to see if boombox has an AudioSource
 
-                ComicalCompany.Logger.LogInfo("Boom Box exploded!");
                 Utils.ComicalNetworking.Instance?.SpawnLandmineServerRpc(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
                 __instance.playerHeldBy?.DestroyItemInSlot(__instance.playerHeldBy.currentItemSlot);
             }

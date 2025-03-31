@@ -2,12 +2,12 @@
 
 namespace ComicalCompany.Patches
 {
-    [HarmonyPatch(typeof(RoundManager))]
+    [HarmonyPatch(typeof(StartOfRound))]
     public class InspirationPatch
     {
-        [HarmonyPatch(nameof(RoundManager.GenerateNewLevelClientRpc))]
+        [HarmonyPatch(nameof(StartOfRound.StartGame))]
         [HarmonyPostfix]
-        private static void GenerateNewLevelClientRpcPostfix()
+        private static void StartGamePostfix()
         {
             int seed = StartOfRound.Instance.randomMapSeed;
 

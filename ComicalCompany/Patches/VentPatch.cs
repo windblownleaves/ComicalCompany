@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace ComicalCompany.Patches
 {
-    [HarmonyPatch(typeof(StartOfRound))]
+    [HarmonyPatch]
     public class VentPatch
     {
         static Vector3 newPosition;
         static bool hasRun = false;
 
-        [HarmonyPatch(nameof(StartOfRound.StartGame))]
+        [HarmonyPatch(typeof(StartOfRound), "StartGame")]
         [HarmonyPostfix]
         private static void GameLoadPostfix()
         {
@@ -41,8 +41,17 @@ namespace ComicalCompany.Patches
             ventInstance.name = vanillaVent.name;
             ventInstance.transform.parent = vanillaVent.transform.parent;
             GameObject.Destroy(vanillaVent);
+        }
 
-            ComicalCompany.Logger.LogInfo("Destroyed vanilla vent and replaced it with " + ventInstance);
+        [HarmonyPatch(typeof(RoundManager), "DespawnPropsAtEndOfRound")]
+        [HarmonyPrefix]
+        private static void DespawnPropsPrefix()
+        {
+            GameObject vent = GameObject.Find("VentEntrance");
+
+            vent.GetComponent<AudioSource>()?.Stop();
+            vent.GetComponent<Animator>().Play("New State");
+            vent.GetComponent<EnemyVent>().ventIsOpen = false;
         }
     }
 }

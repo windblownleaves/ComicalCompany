@@ -24,7 +24,6 @@ namespace ComicalCompany.Patches
             GameObject[] ladders = { ladder0, ladder1 };
 
             GameObject ladderMesh = GameObject.Find("OutsideShipRoom/Ladder");
-            ComicalCompany.Logger.LogError(ladderMesh);
 
             foreach (GameObject ladder in ladders)
             {
@@ -39,8 +38,6 @@ namespace ComicalCompany.Patches
                     instance.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     instance.transform.localScale = Vector3.one;
                     instance.transform.localPosition = new Vector3(0, -7.321347f, 0) + i * new Vector3(0, -9.044013f, 0);
-
-                    ComicalCompany.Logger.LogError("Processed instance.");
                 }
             }
         }

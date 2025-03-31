@@ -16,7 +16,6 @@ namespace ComicalCompany.Patches
         [HarmonyPatch(typeof(StartOfRound), "SetShipReadyToLand")]
         public static void ShipHasLeft()
         {
-            ComicalCompany.Logger.LogInfo("Doors unlocked");
             UnityEngine.Object.FindObjectOfType<HangarShipDoor>().SetDoorButtonsEnabled(true);
         }
 
@@ -42,8 +41,6 @@ namespace ComicalCompany.Patches
             if (StartOfRound.Instance.inShipPhase && abridgedVersion)
             {
                 __result = abridgedPlayersFiredGameOver(__result);
-
-
             }
         }
 
