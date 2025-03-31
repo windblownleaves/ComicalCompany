@@ -84,8 +84,8 @@ namespace ComicalCompany.Patches
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Celebratory spheroid";
                     break;
                 case "EggBeater(Clone)":
-                    __instance.itemProperties.itemName = "I don't want to say";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "I don't want to say";
+                    __instance.itemProperties.itemName = "Magic wand";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Magic wand";
                     break;
                 case "FancyLamp(Clone)":
                     __instance.itemProperties.itemName = "ÅRSTID";
@@ -212,8 +212,8 @@ namespace ComicalCompany.Patches
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Music genre";
                     break;
                 case "TeaKettle(Clone)":
-                    __instance.itemProperties.itemName = "Anglo-saxon phase transition device";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Anglo-saxon phase transition device";
+                    __instance.itemProperties.itemName = "Britain";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Britain";
                     break;
                 case "Dentures(Clone)":
                     __instance.itemProperties.itemName = "THAT WHICH CONSUMES";
@@ -232,8 +232,8 @@ namespace ComicalCompany.Patches
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "(R'U'R)y'x'(RU')(R'F)(RUR')(RUR'U')R'FRUR'U'F'";
                     break;
                 case "ToyTrain(Clone)":
-                    __instance.itemProperties.itemName = "Autism contraption";
-                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Autism Contraption";
+                    __instance.itemProperties.itemName = "Autism car";
+                    __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Autism car";
                     break;
                 case "TragedyMask(Clone)":
                     __instance.itemProperties.itemName = "You know you want to";
@@ -300,7 +300,7 @@ namespace ComicalCompany.Patches
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Maper";
                     break;
                 case "RadarBooster(Clone)":
-                    __instance.itemProperties.itemName = "Radar bboster";
+                    __instance.itemProperties.itemName = "Rader bboster";
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Radar bboster";
                     break;
                 case "ShovelItem(Clone)":
@@ -329,8 +329,8 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(SandSpiderAI))
             {
-                __instance.enemyType.enemyName = "Leg...";
-                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Leg...";
+                __instance.enemyType.enemyName = "Forbidden protein";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Forbidden protein";
             }
             else if (__instance.GetType() == typeof(ClaySurgeonAI))
             {
@@ -368,8 +368,8 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(JesterAI))
             {
-                __instance.enemyType.enemyName = "Background music";
-                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Background music";
+                __instance.enemyType.enemyName = "Funny box";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Funny box";
             }
             else if (__instance.GetType() == typeof(CaveDwellerAI))
             {
@@ -387,8 +387,8 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(NutcrackerEnemyAI))
             {
-                __instance.enemyType.enemyName = "James Moore, petty officer third class";
-                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "James Moore, petty officer third class";
+                __instance.enemyType.enemyName = "Aimbot hacker";
+                __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Aimbot hacker";
             }
             else if (__instance.GetType() == typeof(CentipedeAI))
             {

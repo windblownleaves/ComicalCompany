@@ -43,7 +43,7 @@ namespace ComicalCompany.Patches
         public static void ItemActivate(BoomboxItem __instance)
         {
             // Explode the boombox if its name is "Boom Box"
-            if (__instance.itemProperties.itemName == "Boom Box" && __instance.isHeld)
+            if (__instance.isHeld)
             {
                 // check to see if boombox has an AudioSource
 
