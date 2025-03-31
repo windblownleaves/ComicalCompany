@@ -43,15 +43,25 @@ namespace ComicalCompany.Patches
             GameObject.Destroy(vanillaVent);
         }
 
-        [HarmonyPatch(typeof(RoundManager), "DespawnPropsAtEndOfRound")]
+        [HarmonyPatch(typeof(StartOfRound), "AllPlayersHaveRevivedClientRpc")]
         [HarmonyPrefix]
         private static void DespawnPropsPrefix()
         {
             GameObject vent = GameObject.Find("VentEntrance");
 
-            vent.GetComponent<AudioSource>()?.Stop();
-            vent.GetComponent<Animator>().Play("New State");
-            vent.GetComponent<EnemyVent>().ventIsOpen = false;
+            if (vent != null)
+            {
+                vent.GetComponent<AudioSource>()?.Stop();
+
+                if (vent.GetComponent<Animator>() != null)
+                {
+                    vent.GetComponent<Animator>().Play("New State");
+                }
+                if (vent.GetComponent<EnemyVent>() != null)
+                {
+                    vent.GetComponent<EnemyVent>().ventIsOpen = false;
+                }
+            }
         }
     }
 }
