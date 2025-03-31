@@ -20,12 +20,13 @@ namespace ComicalCompany.Patches
         public static void beamUpPlayer(ShipTeleporter __instance, ref bool __runOriginal, ref IEnumerator __result)
         {
             __runOriginal = true;
-
-            if (StartOfRound.Instance.shipIsLeaving)
+            // some issues with this
+            ComicalCompany.Logger.LogInfo("Beaming up player");
+            if (StartOfRound.Instance.shipIsLeaving || StartOfRound.Instance.inShipPhase)
             {
                 return;
             }
-            if (UnityEngine.Random.value < 0.08f)
+            if (UnityEngine.Random.value < 0.5f)
             {
                 __result = teleportMasked(__instance);
                 __runOriginal = false;

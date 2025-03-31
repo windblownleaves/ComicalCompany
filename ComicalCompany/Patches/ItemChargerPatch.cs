@@ -11,6 +11,7 @@ namespace ComicalCompany.Patches
     [HarmonyPatch]
     public class ItemChargerPatch
     {
+        [HarmonyPriority(Priority.High)]
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ItemCharger), "Update")]
         public static void Update(ItemCharger __instance, ref bool __runOriginal)
@@ -32,17 +33,14 @@ namespace ComicalCompany.Patches
             {
                 __instance.updateInterval += Time.deltaTime;
             }
-        }   
+        }
 
+        [HarmonyPriority(Priority.High)]
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ItemCharger), "ChargeItem")]
         public static void ChargeItem(ref ItemCharger __instance, ref bool __runOriginal)
         {
-            if (StartOfRound.Instance.inShipPhase)
-            {
-                __runOriginal = true;
-                return;
-            }
+            
             GrabbableObject currentlyHeldObjectServer = GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer;
             if (currentlyHeldObjectServer == null || (currentlyHeldObjectServer.itemProperties.isConductiveMetal && !currentlyHeldObjectServer.itemProperties.requiresBattery))
             {
@@ -62,8 +60,10 @@ namespace ComicalCompany.Patches
             __instance.zapAudio.Play();
             yield return new WaitForSeconds(0.75f);
             __instance.chargeStationAnimator.SetTrigger("zap");
-            
-            Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 60, 10f);
+            if (StartOfRound.Instance.inShipPhase)
+            {
+                Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 60, 10f);
+            }
         }
     }
 
