@@ -9,7 +9,6 @@ namespace ComicalCompany.Utils
         public static ComicalNetworking? Instance;
 
 
-
         public override void OnNetworkSpawn()
         {
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
@@ -61,11 +60,10 @@ namespace ComicalCompany.Utils
             GameObject egg = StartOfRound.Instance.allItemsList.itemsList.Find(item => item.itemName.ToLower().Contains("easter")).spawnPrefab;
             StunGrenadeItem eggInstance = Instantiate(egg, position, Quaternion.identity).GetComponent<StunGrenadeItem>();
             eggInstance.explodeOnThrow = true;
+            eggInstance.explodeOnCollision = true;
             eggInstance.chanceToExplode = 100f;
-            eggInstance.DestroyGrenade = false;
+            eggInstance.DestroyGrenade = true;
             eggInstance.ExplodeStunGrenade();
-            Utils.DestroyGameObject(eggInstance.gameObject);
-
         }
     }
 }

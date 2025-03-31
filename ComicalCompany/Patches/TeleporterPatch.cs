@@ -19,6 +19,8 @@ namespace ComicalCompany.Patches
         [HarmonyPatch(typeof(ShipTeleporter), nameof(ShipTeleporter.beamUpPlayer))]
         public static void beamUpPlayer(ShipTeleporter __instance, ref bool __runOriginal, ref IEnumerator __result)
         {
+            __runOriginal = true;
+
             // some issues with this
             ComicalCompany.Logger.LogInfo("Beaming up player");
             if (StartOfRound.Instance.shipIsLeaving)
@@ -48,7 +50,7 @@ namespace ComicalCompany.Patches
             {
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.Big);
             }
-
+            yield break;
         }
     }
 }
