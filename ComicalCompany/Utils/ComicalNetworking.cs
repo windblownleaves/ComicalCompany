@@ -65,13 +65,13 @@ namespace ComicalCompany.Utils
             eggInstance.explodeOnCollision = true;
             eggInstance.chanceToExplode = 100f;
             eggInstance.DestroyGrenade = true;
-            eggInstance.GetComponent<NetworkObject>().Spawn(false);
-
-            eggInstance.ExplodeStunGrenade();
             if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost)
             {
-                eggInstance.GetComponent<NetworkObject>().Despawn();
+                eggInstance.GetComponent<NetworkObject>().Spawn(false);
             }
+
+            eggInstance.ExplodeStunGrenade();
+            
         }
     }
 }

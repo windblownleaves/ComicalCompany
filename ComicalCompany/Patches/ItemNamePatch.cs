@@ -204,7 +204,6 @@ namespace ComicalCompany.Patches
                     break;
                 case "StopSign(Clone)":
                     __instance.itemProperties.itemName = "Government property";
-                    __instance.scrapValue = __instance.scrapValue * -1;
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Government property";
                     break;
                 case "MetalSheet(Clone)":
@@ -250,7 +249,6 @@ namespace ComicalCompany.Patches
                     break;
                 case "YieldSign(Clone)":
                     __instance.itemProperties.itemName = "Government property";
-                    __instance.scrapValue = __instance.scrapValue * -1;
                     __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Government property";
                     break;
                 case "ZeddogPlushie(Clone)":

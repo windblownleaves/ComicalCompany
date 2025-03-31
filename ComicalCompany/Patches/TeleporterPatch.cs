@@ -29,6 +29,7 @@ namespace ComicalCompany.Patches
             }
             if (random.NextDouble() < 0.5f)
             {
+                ComicalCompany.Logger.LogInfo("Beaming up mimic");
                 __result = teleportMasked(__instance);
                 __runOriginal = false;
                 return;
@@ -42,9 +43,10 @@ namespace ComicalCompany.Patches
             {
                 Vector3 position = RoundManager.Instance.outsideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
                 GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(Utils.Utils.allEnemyTypes.Find(x => x.enemyName.ToLower().Contains("mask")).enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                gameObject.GetComponent<MaskedPlayerEnemy>().mimickingPlayer = null;
                 gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
                 RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
-                gameObject.GetComponent<EnemyAI>().ShipTeleportEnemy();
+                gameObject.GetComponent<MaskedPlayerEnemy>().ShipTeleportEnemy();
             }
            
             yield return new WaitForSeconds(3f);

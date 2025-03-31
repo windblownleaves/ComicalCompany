@@ -60,7 +60,7 @@ namespace ComicalCompany.Patches
             __instance.zapAudio.Play();
             yield return new WaitForSeconds(0.75f);
             __instance.chargeStationAnimator.SetTrigger("zap");
-            if (StartOfRound.Instance.inShipPhase)
+            if (!StartOfRound.Instance.inShipPhase)
             {
                 Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 60, 10f);
             }

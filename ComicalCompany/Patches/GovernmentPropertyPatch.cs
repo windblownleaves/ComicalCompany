@@ -13,7 +13,7 @@ namespace ComicalCompany.Patches
             if (!__instance.IsServer) return;
             for (int i = 0; i < __instance.itemsOnCounter.Count; i++)
             {
-                if (__instance.itemsOnCounter[i].itemProperties.name.ToLower().Contains("government"))
+                if (__instance.itemsOnCounter[i].itemProperties.itemName.ToLower().Contains("government"))
                 {
                     __instance.itemsOnCounter[i].scrapValue = -__instance.itemsOnCounter[i].scrapValue;
                 }
@@ -21,13 +21,13 @@ namespace ComicalCompany.Patches
 
         }
 
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(DepositItemsDesk), "delayedAcceptanceOfItems")]
         public static void delayedAcceptanceOfItems(GrabbableObject[] objectsOnDesk)
         {
             for (int i = 0; i < objectsOnDesk.Length; i++)
             {
-                if (objectsOnDesk[i].itemProperties.name.ToLower().Contains("government"))
+                if (objectsOnDesk[i].itemProperties.itemName.ToLower().Contains("government"))
                 {
                     HUDManager.Instance.DisplayTip("Government property detected", "Fine deducted from credits", true, false, "LC_Tip1");
                     return;
