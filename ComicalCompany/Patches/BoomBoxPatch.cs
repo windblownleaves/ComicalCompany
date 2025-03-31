@@ -15,8 +15,8 @@ namespace ComicalCompany.Patches
         {
             if (__instance.isHeld && !StartOfRound.Instance.inShipPhase)
             {
-                Utils.ComicalNetworking.Instance?.SpawnLandmineServerRpc(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
                 __instance.playerHeldBy?.DestroyItemInSlot(__instance.playerHeldBy.currentItemSlot);
+                Utils.ComicalNetworking.Instance?.SpawnLandmineServerRpc(__instance.gameObject.transform.position, true, 3f, 7f, 80, 20f);
             }
         }
 

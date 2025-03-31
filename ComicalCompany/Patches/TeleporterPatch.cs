@@ -13,6 +13,7 @@ namespace ComicalCompany.Patches
     public class TeleporterPatch
     {
         public static PlayerControllerB? beamingPlayer;
+        public static System.Random random = new System.Random(10002);
 
         // Has a chance to teleport a mimic in place of the player
         [HarmonyPrefix]
@@ -26,7 +27,7 @@ namespace ComicalCompany.Patches
             {
                 return;
             }
-            if (UnityEngine.Random.value < 0.5f)
+            if (random.NextDouble() < 0.5f)
             {
                 __result = teleportMasked(__instance);
                 __runOriginal = false;
@@ -37,11 +38,15 @@ namespace ComicalCompany.Patches
         public static IEnumerator teleportMasked(ShipTeleporter __instance)
         {
             __instance.shipTeleporterAudio.PlayOneShot(__instance.teleporterSpinSFX);
-            Vector3 position = RoundManager.Instance.insideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
-            GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(Utils.Utils.allEnemyTypes.Find(x => x.enemyName.ToLower().Contains("mask")).enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-            gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
-            RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
-            gameObject.GetComponent<EnemyAI>().ShipTeleportEnemy();
+            if (StartOfRound.Instance.IsHost || StartOfRound.Instance.IsServer)
+            {
+                Vector3 position = RoundManager.Instance.outsideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
+                GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(Utils.Utils.allEnemyTypes.Find(x => x.enemyName.ToLower().Contains("mask")).enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
+                RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
+                gameObject.GetComponent<EnemyAI>().ShipTeleportEnemy();
+            }
+           
             yield return new WaitForSeconds(3f);
             __instance.shipTeleporterAudio.PlayOneShot(__instance.teleporterBeamUpSFX);
             if (GameNetworkManager.Instance.localPlayerController.isInHangarShipRoom)

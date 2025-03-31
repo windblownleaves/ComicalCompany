@@ -12,6 +12,7 @@ namespace ComicalCompany.Patches
     {
         public static float randomTimer = 0;
         public static float randomval = 1f;
+        public static System.Random random = new System.Random(1245678);
         public static MethodInfo checkRandomMethod = AccessTools.Method(typeof(CoilheadPatch), "CheckRandom");
 
         public static bool CheckRandom()
@@ -21,7 +22,7 @@ namespace ComicalCompany.Patches
             if (randomTimer > 2)
             {
                 randomTimer = 0;
-                randomval = Random.value;
+                randomval = (float)random.NextDouble();
             }
             if (Random.value < 0.025f)
             {

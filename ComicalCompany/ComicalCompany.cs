@@ -99,6 +99,7 @@ namespace ComicalCompany
                 // Non-Negotiable Patches
                 Harmony.CreateClassProcessor(typeof(NetworkingPatch)).Patch();
                 Harmony.CreateClassProcessor(typeof(StartOfRoundPatch)).Patch();
+                Harmony.CreateClassProcessor(typeof(RoundManagerPatch)).Patch();
 
                 if (BoundConfig.enableSwitchPatch.Value)
                     Harmony.CreateClassProcessor(typeof(SwitchPatch)).Patch();
