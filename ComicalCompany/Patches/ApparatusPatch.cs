@@ -1,8 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 
 namespace ComicalCompany.Patches
 {
@@ -14,19 +10,16 @@ namespace ComicalCompany.Patches
         [HarmonyPostfix]
         public static void OnHitGround(GrabbableObject __instance)
         {
-
-            ComicalCompany.Logger.LogInfo("item discarded");
-            bool isInShipRoom = __instance.isInShipRoom;
+            if (StartOfRound.Instance.inShipPhase)
+            {
+                return;
+            }
             if (__instance.__getTypeName() == "LungProp")
             {
-                if (UnityEngine.Random.value < 0.5f)
+                if (UnityEngine.Random.value < 0.1f)
                 {
-                    ComicalCompany.Logger.LogInfo("Triggering explosion");
-
                     Utils.ComicalNetworking.Instance?.SpawnEasterEggExplosionServerRpc(__instance.transform.position);
-
-                   Utils.Utils.DestroyGameObject(__instance.gameObject);
-
+                    Utils.Utils.DestroyGameObject(__instance.gameObject);
                 }
             }
         }

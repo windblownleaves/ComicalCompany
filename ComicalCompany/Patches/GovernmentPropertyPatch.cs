@@ -1,7 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ComicalCompany.Patches
 {
@@ -9,20 +6,20 @@ namespace ComicalCompany.Patches
     public class GovernmentPropertyPatch
     {
 
-        /*[HarmonyPrefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(DepositItemsDesk), "SellItemsOnServer")]
         public static void SellItemsOnServer(DepositItemsDesk __instance)
         {
             if (!__instance.IsServer) return;
             for (int i = 0; i < __instance.itemsOnCounter.Count; i++)
             {
-                if (__instance.itemsOnCounter[i].itemProperties.name.ToLower().Contains("sign"))
+                if (__instance.itemsOnCounter[i].itemProperties.name.ToLower().Contains("government"))
                 {
                     __instance.itemsOnCounter[i].scrapValue = -__instance.itemsOnCounter[i].scrapValue;
                 }
             }
 
-        }*/
+        }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(DepositItemsDesk), "delayedAcceptanceOfItems")]

@@ -14,7 +14,6 @@ namespace ComicalCompany.Patches
             // 5% chance to not jump
             if (UnityEngine.Random.Range(0, 100) < 5)
             {
-                ComicalCompany.Logger.LogInfo("Cancelled jumping!");
                 __runOriginal = false;
             }
         }

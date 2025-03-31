@@ -1,15 +1,13 @@
 ﻿using HarmonyLib;
-using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using System.Text;
 
 namespace ComicalCompany.Patches
 {
     [HarmonyPatch]
     public class JesterInfestation
     {
-        // WIP
+        // Untested, doesn't break but may not work
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(RoundManager), "RefreshEnemiesList")]
         public static IEnumerable<CodeInstruction> PatchRefreshEnemiesList(IEnumerable<CodeInstruction> instructions)
