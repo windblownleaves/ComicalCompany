@@ -25,8 +25,6 @@ namespace ComicalCompany.Patches
         [HarmonyPatch(typeof(HangarShipDoor), "SetDoorOpen")]
         public static void SetDoorOpen(HangarShipDoor __instance, ref bool __runOriginal)
         {
-            // if not server, return
-
             if (StartOfRound.Instance.inShipPhase)
             {
                 StartOfRound.Instance.FirePlayersAfterDeadlineClientRpc(new int[] {
@@ -65,7 +63,6 @@ namespace ComicalCompany.Patches
             {
                 hangarDoor.SetDoorClosed();
                 hangarDoor.PlayDoorAnimation(true);
-                ComicalCompany.Logger.LogInfo("Doors closed after reset.");
             }
         }
 
