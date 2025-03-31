@@ -62,7 +62,7 @@ namespace ComicalCompany.Patches
             __instance.chargeStationAnimator.SetTrigger("zap");
             if (!StartOfRound.Instance.inShipPhase)
             {
-                Landmine.SpawnExplosion(__instance.transform.position, true, 0f, 6f, 60, 10f);
+                Landmine.SpawnExplosion(__instance.transform.position, true, 2f, 6f, 60, 10f);
             }
         }
     }

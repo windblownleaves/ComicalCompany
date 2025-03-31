@@ -41,7 +41,7 @@ namespace ComicalCompany.Patches
             __instance.shipTeleporterAudio.PlayOneShot(__instance.teleporterSpinSFX);
             if (StartOfRound.Instance.IsHost || StartOfRound.Instance.IsServer)
             {
-                Vector3 position = RoundManager.Instance.outsideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
+                Vector3 position = RoundManager.Instance.insideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
                 GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(Utils.Utils.allEnemyTypes.Find(x => x.enemyName.ToLower().Contains("mask")).enemyPrefab, position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
                 gameObject.GetComponent<MaskedPlayerEnemy>().mimickingPlayer = null;
                 gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);

@@ -165,7 +165,7 @@ namespace ComicalCompany.Configuration
             enableTeleporterPatch = cfg.Bind(
                 "General",
                 "Friends",
-                true,
+                false,
                 "It is nice to be visited by a good friend"
             );
 
