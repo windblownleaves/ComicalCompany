@@ -4,9 +4,12 @@ using ComicalCompany.Configuration;
 using ComicalCompany.Patches;
 using ComicalCompany.Utils;
 using HarmonyLib;
+using System.Collections;
 using System.IO;
 using System.Reflection;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ComicalCompany
 {
@@ -19,12 +22,20 @@ namespace ComicalCompany
 
         internal static ComicalCompanyConfig BoundConfig { get; private set; } = null!;
 
-        public static AssetBundle assetBundle;
+        public static AssetBundle? assetBundle;
+
+        public static GameObject ventPrefab;
+        private bool prefabRegistered = false;
+
+        public static GameObject lollipopPrefab;
+        public static GameObject hatPrefab;
 
         private void Awake()
         {
             Logger = base.Logger;
             Instance = this;
+
+            Logger.LogError("Awake is running.");
 
             BoundConfig = new ComicalCompanyConfig(Config);
 
@@ -40,10 +51,27 @@ namespace ComicalCompany
                 Logger.LogError("Failed to load custom assets."); // ManualLogSource for your plugin
                 return;
             }
-            EnemySizePatch.Lollypop = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/Lollypop.prefab");
-            EnemySizePatch.FunnyHat = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/FunnyHat.prefab");
+            lollipopPrefab = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/lollipop.prefab");
+            hatPrefab = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/hat.prefab");
+            ventPrefab = assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/vent.prefab");
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
             NetcodePatcher(); // ONLY RUN ONCE //
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (prefabRegistered) return;
+
+            ComicalCompany.Logger.LogError("Start is running.");
+
+            if (NetworkManager.Singleton != null && ventPrefab != null)
+            {
+                NetworkManager.Singleton.AddNetworkPrefab(ventPrefab);
+                prefabRegistered = true;
+                ComicalCompany.Logger.LogError("Registered enemy vent prefab with NetworkManager: " + ventPrefab.GetHashCode() + ", " + ventPrefab.GetComponent<NetworkObject>().GlobalObjectIdHash);
+            }
         }
 
         private static void NetcodePatcher()
@@ -132,9 +160,11 @@ namespace ComicalCompany
             if (BoundConfig.enableVentPatch.Value)
                 Harmony.CreateClassProcessor(typeof(VentPatch)).Patch();
 
-            Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
-            Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
-            //Harmony.CreateClassProcessor(typeof(BlobPatch)).Patch();
+            if (BoundConfig.enablePropsPatch.Value)
+                Harmony.CreateClassProcessor(typeof(PropsPatch)).Patch();
+
+            if (BoundConfig.enableInspirationPatch.Value)
+                Harmony.CreateClassProcessor(typeof(InspirationPatch)).Patch();
 
             // Log harmony patched methods
             Logger.LogInfo("Patched methods:");

@@ -7,11 +7,18 @@ namespace ComicalCompany.Patches
     [HarmonyPatch(typeof(StartOfRound))]
     public class VentPatch
     {
+        static Vector3 newPosition;
+        static bool hasRun = false;
+
         [HarmonyPatch(nameof(StartOfRound.StartGame))]
         [HarmonyPostfix]
         private static void GameLoadPostfix()
         {
-            GameObject enemyVent = ComicalCompany.assetBundle.LoadAsset<GameObject>("assets/LethalCompany/Custom/vent.prefab");
+            if (hasRun)
+            {
+                return;
+            }
+            hasRun = true;
 
             GameObject vanillaVent = GameObject.Find("VentEntrance");
 
@@ -21,7 +28,7 @@ namespace ComicalCompany.Patches
                 return;
             }
 
-            GameObject ventInstance = GameObject.Instantiate(enemyVent);
+            GameObject? ventInstance = Object.Instantiate(ComicalCompany.ventPrefab);
 
             NetworkObject netObj = ventInstance.GetComponent<NetworkObject>();
             if (netObj != null && !netObj.IsSpawned)
@@ -35,7 +42,7 @@ namespace ComicalCompany.Patches
             ventInstance.transform.parent = vanillaVent.transform.parent;
             GameObject.Destroy(vanillaVent);
 
-            ComicalCompany.Logger.LogInfo("Destroyed vanilla vent and replaced it with " + enemyVent);
+            ComicalCompany.Logger.LogInfo("Destroyed vanilla vent and replaced it with " + ventInstance);
         }
     }
 }

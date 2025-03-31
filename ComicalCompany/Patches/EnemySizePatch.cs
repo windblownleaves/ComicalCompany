@@ -9,8 +9,6 @@ namespace ComicalCompany.Patches
     [HarmonyPatch]
     public class EnemySizePatch
     {
-        public static GameObject? Lollypop;
-        public static GameObject? FunnyHat;
         [HarmonyPostfix]
         [HarmonyPatch(typeof(EnemyAI), "Start")]
         public static void Awake(EnemyAI __instance)
@@ -19,7 +17,10 @@ namespace ComicalCompany.Patches
             {
                 __instance.transform.localScale = __instance.transform.localScale / 4;
                 __instance.enemyType.enemyName = "Forest";
-                if (Lollypop != null && FunnyHat != null)
+                __instance.agent.height = 1;
+                __instance.agent.radius = 0.5f;
+
+                if (ComicalCompany.lollipopPrefab != null && ComicalCompany.hatPrefab != null)
                 {
                     // WIP not working
                     ComicalCompany.Logger.LogInfo("transform: " + __instance.gameObject.transform);
@@ -29,19 +30,17 @@ namespace ComicalCompany.Patches
                     ComicalCompany.Logger.LogInfo("AnimContainer: " + AnimContainer);
                     Transform HeadTransform = AnimContainer.transform.Find("metarig").transform.Find("spine").transform.Find("spine.003").transform.Find("shoulder.L");
                     ComicalCompany.Logger.LogInfo("HeadTransform: " + HeadTransform);
-                    GameObject funnyHat = GameObject.Instantiate(FunnyHat, HeadTransform);
-                    funnyHat.transform.localPosition = new Vector3(0, 1f, 0);
-                    funnyHat.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    
+                    GameObject funnyHat = GameObject.Instantiate(ComicalCompany.hatPrefab, HeadTransform);
+                    funnyHat.transform.localPosition = new Vector3(0.006f, -0.055f, 0.145f);
+                    funnyHat.transform.localRotation = Quaternion.Euler(34, -112.5f, -89f);
+
                     ComicalCompany.Logger.LogInfo("FunnyHat: " + funnyHat);
                     Transform HandTransform = HeadTransform.transform.Find("upper_arm.L").transform.Find("forearm.L").transform.Find("hand.L");
                     ComicalCompany.Logger.LogInfo("HandTransform: " + HandTransform.position);
-                    GameObject lollypop = GameObject.Instantiate(Lollypop, HandTransform);
-                    lollypop.transform.localPosition = new Vector3(-0.2f, -0.5f, 0);
-                    lollypop.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    GameObject lollypop = GameObject.Instantiate(ComicalCompany.lollipopPrefab, HandTransform);
+                    lollypop.transform.localPosition = new Vector3(-0.076f, 0.239f, -0.013f);
+                    lollypop.transform.localRotation = Quaternion.Euler(90, 83.5f, 86);
                     ComicalCompany.Logger.LogInfo("Lollypop: " + lollypop);
-
-
                 }
             }
             else if (__instance.GetType() == typeof(SandSpiderAI))
@@ -51,6 +50,8 @@ namespace ComicalCompany.Patches
             else if (__instance.GetType() == typeof(RadMechAI))
             {
                 __instance.transform.localScale = __instance.transform.localScale / 5;
+                __instance.agent.height = 1;
+                __instance.agent.radius = 0.5f;
             }
         }
 

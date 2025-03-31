@@ -8,15 +8,12 @@ namespace ComicalCompany.Utils
     {
         public static ComicalNetworking? Instance;
 
-
-
         public override void OnNetworkSpawn()
         {
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
                 Instance?.gameObject.GetComponent<NetworkObject>().Despawn();
             Instance = this;
             ComicalCompany.Logger.LogInfo("ComicalNetworking awakened!");
-
 
             base.OnNetworkSpawn();
         }
@@ -65,7 +62,6 @@ namespace ComicalCompany.Utils
             eggInstance.DestroyGrenade = false;
             eggInstance.ExplodeStunGrenade();
             Utils.DestroyGameObject(eggInstance.gameObject);
-
         }
     }
 }

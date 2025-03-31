@@ -28,6 +28,8 @@ namespace ComicalCompany.Configuration
         public readonly ConfigEntry<bool> enableVentPatch;
         public readonly ConfigEntry<bool> enableSwitchPatch;
         public readonly ConfigEntry<bool> enableTeleporterPatch;
+        public readonly ConfigEntry<bool> enableInspirationPatch;
+        public readonly ConfigEntry<bool> enablePropsPatch;
 
         public ComicalCompanyConfig(ConfigFile cfg)
         {
@@ -161,9 +163,23 @@ namespace ComicalCompany.Configuration
 
             enableTeleporterPatch = cfg.Bind(
                 "General",
-                "FaultyTeleportation",
+                "Friends",
                 true,
-                "Transmitting someone as pure energy is tricky. Sometimes the data gets corrupted on arrival."
+                "It is nice to be visited by a good friend"
+            );
+
+            enableInspirationPatch = cfg.Bind(
+                "General",
+                "Inspiration",
+                true,
+                "To increase work efficiency (we live in a capitalism society)"
+            );
+
+            enablePropsPatch = cfg.Bind(
+                "General",
+                "Terraforming",
+                true,
+                "It's like a whole new map every time!"
             );
 
             ClearOrphanedEntries(cfg);

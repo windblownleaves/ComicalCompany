@@ -422,7 +422,6 @@ namespace ComicalCompany.Patches
             }
             else if (__instance.GetType() == typeof(RadMechAI))
             {
-                __instance.enemyType.enemyName = "Old bird action figure (gone wrong)";
                 __instance.GetComponentInChildren<ScanNodeProperties>().headerText = "Old bird action figure (gone wrong)";
             }
             else if (__instance.GetType() == typeof(RedLocustBees))
